@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 
 const Product = require("../models/product");
 
-const URL = "http://localhost:3000/";
+const URL = "http://localhost:3000/products/";
 
 router.get("/", (req, res, next) => {
   Product.find()
@@ -20,7 +20,7 @@ router.get("/", (req, res, next) => {
             price: doc.price,
             request: {
               type: "GET",
-              url: URL + "products/" + doc._id,
+              url: URL + doc._id,
             },
           };
         }),
@@ -51,7 +51,7 @@ router.post("/", (req, res, next) => {
           id: result._id,
           request: {
             type: "GET",
-            url: URL + "products/" + result._id,
+            url: URL + result._id,
           },
         },
       });
@@ -72,7 +72,7 @@ router.get("/:productId", (req, res, next) => {
         request: {
           type: "GET",
           description: "Get all products",
-          url: URL + "products",
+          url: URL,
         },
       });
     })
@@ -97,7 +97,7 @@ router.patch("/:productId", (req, res, next) => {
         message: "Product updated",
         request: {
           type: "GET",
-          url: URL + "products/" + id,
+          url: URL + id,
         },
       });
     })
